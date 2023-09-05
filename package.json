@@ -1,0 +1,24 @@
+{
+  "name": "node-fireflies",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc -p .",
+    "typedoc": "typedoc --out ./docs ./src --theme stacks",
+    "eslintconfig": "eslint --init"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.5.0",
+    "qs": "^6.11.2",
+    "typedoc": "^0.25.1",
+    "typescript": "^5.2.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.48.0",
+    "prettier": "^3.0.3"
+  }
+}
