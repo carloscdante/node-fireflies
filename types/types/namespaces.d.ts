@@ -102,6 +102,21 @@ export type UserRoleRequest = {
     role: Role;
     filter: string[];
 };
+export type DeleteTranscriptRequest = {
+    transcriptId: string;
+    filter: string[];
+};
+export type UploadAudioRequest = {
+    url: string;
+    title: string;
+    attendees: Attendee[];
+    webhook?: string;
+};
+export type UploadAudioResponse = {
+    success: boolean;
+    title: string;
+    message: string;
+};
 export declare enum CacheControlScope {
     Public = "PUBLIC",
     Private = "PRIVATE"
