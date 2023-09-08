@@ -3,7 +3,7 @@
  * https://docs.fireflies.ai/
  */
 
-type AiFilter = {
+export type AiFilter = {
   task: string;
   pricing: string;
   metric: string;
@@ -13,26 +13,26 @@ type AiFilter = {
   sentiment: string;
 }
 
-type Attendee = {
+export type Attendee = {
   displayName: string;
   email: string;
   phoneNumber: string;
 }
 
-type AudioUploadInput = {
+export type AudioUploadInput = {
   url: string;
   title: string;
   attendees: Attendee[];
   webhook: string;
 }
 
-type AudioUploadStatus = {
+export type AudioUploadStatus = {
   success: boolean;
   title: string;
   message: string;
 }
 
-type MeetingAttendee = {
+export type MeetingAttendee = {
   displayName: string;
   email: string;
   phoneNumber: string;
@@ -40,7 +40,7 @@ type MeetingAttendee = {
   location: string;
 }
 
-type Sentence = {
+export type Sentence = {
   index: number;
   text: string;
   rawText: string;
@@ -51,7 +51,7 @@ type Sentence = {
   aiFilters: AiFilter;
 }
 
-type Transcript = {
+export type Transcript = {
   id: string;
   sentences: Sentence[];
   title: string;
@@ -67,22 +67,48 @@ type Transcript = {
   meetingAttendees: MeetingAttendee[];
 }
 
-type UserResponse = {
-  id: string;
-  email: string;
-  name: string;
-  numTranscripts: number;
-  recentTranscript: string;
-  recentMeeting: string;
-  minutesConsumed: number;
-  isAdmin: boolean;
-  integrations: string[];
+export type UserRawResponse = {
+  user_id: string;
+  email?: string;
+  name?: string;
+  num_transcripts?: number;
+  recent_transcript?: string;
+  recent_meeting?: string;
+  minutes_consumed?: number;
+  is_admin?: boolean;
+  integrations?: string[];
 }
 
-type ClientUser = {
+export type UserResponse = {
+  id: string;
+  email?: string;
+  name?: string;
+  numTranscripts?: number;
+  recentTranscript?: string;
+  recentMeeting?: string;
+  minutesConsumed?: number;
+  isAdmin?: boolean;
+  integrations?: string[];
+}
+
+export type ClientUser = {
   id: string;
   email: string;
   token: string;
+}
+
+export type TranscriptRequest = {
+  id: string;
+  filter: string[];
+}
+
+export type TranscriptsRequest = {
+  filter: string[];
+}
+
+export type UserRequest = {
+  id?: string;
+  filter: string[];
 }
 
 export enum CacheControlScope {
