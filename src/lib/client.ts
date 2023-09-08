@@ -1,10 +1,11 @@
-import { TranscriptRequest, TranscriptsRequest, UserRequest, UserRoleRequest } from './../types/namespaces';
+import { DeleteTranscriptRequest, TranscriptRequest, TranscriptsRequest, UploadAudioRequest, UploadAudioResponse, UserRequest, UserRoleRequest } from './../types/namespaces';
 import { convertUserToClient, removeEmpty } from './../util/helpers';
 import { Transcript, UserRawResponse, UserResponse } from '../types/namespaces';
 import { RequestClient } from './requestClient';
 
 export class FirefliesClient extends RequestClient {
-  constructor(token: string, url: string = 'https://api.fireflies.ai/graphql') {
+  constructor(token: string) {
+    const url = 'https://api.fireflies.ai/graphql'
     super(url, token);
   }
 
@@ -94,6 +95,7 @@ export class FirefliesClient extends RequestClient {
   public async setUserRole(request: UserRoleRequest): Promise<UserResponse> {
     const user_id = request.userId;
     const role = request.role;
+
     try {
       const response = await this.requestClient('post', {
         query: `
@@ -108,6 +110,48 @@ export class FirefliesClient extends RequestClient {
       return response.data.data.setUserRole as UserResponse;
     } catch (error) {
       throw new Error(`An error occurred while trying to change role for user ID ${user_id}: ${error}`)
+    }
+  }
+
+  public async deleteTranscript(request: DeleteTranscriptRequest): Promise<Transcript> {
+    const transcriptId = request.transcriptId;
+
+    try {
+      const response = await this.requestClient('post', {
+        query: `
+        mutation($transcriptId: String!) {
+          deleteTranscript(id: $transcriptId) {
+            ${request.filter.join(' ')}
+          }
+        }
+      `,
+      variables: { transcriptId }
+      });
+      return response.data.data.deleteTranscript as Transcript;
+    } catch (error) {
+      throw new Error(`An error occurred while trying to delete transcript with ID ${transcriptId}: ${error}`)
+    }
+  }
+
+  public async uploadAudio(request: UploadAudioRequest): Promise<UploadAudioResponse> {
+    const input = request;
+
+    try {
+      const response = await this.requestClient('post', {
+        query: `
+        mutation($input: AudioUploadInput) {
+          uploadAudio(input: $input) {
+            success
+            title
+            message
+          }
+        }
+      `,
+      variables: { input }
+      });
+      return response.data.data.uploadAudio as UploadAudioResponse;
+    } catch (error) {
+      throw new Error(`An error occurred while trying to upload audio: ${error}`)
     }
   }
 }
