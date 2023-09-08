@@ -1,28 +1,11 @@
-import { TranscriptRequest, TranscriptsRequest, UserRequest } from './../types/namespaces';
+import { TranscriptRequest, TranscriptsRequest, UserRequest, UserRoleRequest } from './../types/namespaces';
 import { convertUserToClient, removeEmpty } from './../util/helpers';
-import axios from 'axios';
 import { Transcript, UserRawResponse, UserResponse } from '../types/namespaces';
+import { RequestClient } from './requestClient';
 
-export class FirefliesClient {
-  private readonly token: string;
-
-  constructor(token: string) {
-    this.token = token;
-  }
-
-  private readonly baseUrl = 'https://api.fireflies.ai/graphql';
-
-  // Client Declaration
-  private readonly requestClient = async (method, data) => {
-    return axios({
-      url: `${this.baseUrl}`,
-      method,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.token}`,
-      },
-      data,
-    });
+export class FirefliesClient extends RequestClient {
+  constructor(token: string, url: string = 'https://api.fireflies.ai/graphql') {
+    super(url, token);
   }
 
   // General Queries (query op)
@@ -104,6 +87,27 @@ export class FirefliesClient {
     } catch (error) {
       console.error('An error occurred while trying to fetch users information:', error);
       return [] as Transcript[];
+    }
+  }
+
+  // Mutations
+  public async setUserRole(request: UserRoleRequest): Promise<UserResponse> {
+    const user_id = request.userId;
+    const role = request.role;
+    try {
+      const response = await this.requestClient('post', {
+        query: `
+        mutation($user_id: String!, $role: Role!) {
+          setUserRole(user_id: $user_id, role:$role) {
+            ${request.filter.join(' ')}
+          }
+        }
+      `,
+      variables: { user_id, role }
+      });
+      return response.data.data.setUserRole as UserResponse;
+    } catch (error) {
+      throw new Error(`An error occurred while trying to change role for user ID ${user_id}: ${error}`)
     }
   }
 }

@@ -97,6 +97,11 @@ export type UserRequest = {
     id?: string;
     filter: string[];
 };
+export type UserRoleRequest = {
+    userId: string;
+    role: Role;
+    filter: string[];
+};
 export declare enum CacheControlScope {
     Public = "PUBLIC",
     Private = "PRIVATE"

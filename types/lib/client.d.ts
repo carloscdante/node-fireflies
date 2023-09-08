@@ -1,13 +1,12 @@
-import { TranscriptRequest, TranscriptsRequest, UserRequest } from './../types/namespaces';
+import { TranscriptRequest, TranscriptsRequest, UserRequest, UserRoleRequest } from './../types/namespaces';
 import { Transcript, UserResponse } from '../types/namespaces';
-export declare class FirefliesClient {
-    private readonly token;
-    constructor(token: string);
-    private readonly baseUrl;
-    private readonly requestClient;
+import { RequestClient } from './requestClient';
+export declare class FirefliesClient extends RequestClient {
+    constructor(token: string, url?: string);
     getUserData(request: UserRequest): Promise<UserResponse>;
     fetchWorkspaceUsers(request: UserRequest): Promise<UserResponse[]>;
     getTranscript(request: TranscriptRequest): Promise<Transcript>;
     getTranscripts(request: TranscriptsRequest): Promise<Transcript[]>;
+    setUserRole(request: UserRoleRequest): Promise<UserResponse>;
 }
 //# sourceMappingURL=client.d.ts.map
