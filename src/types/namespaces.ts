@@ -129,6 +129,12 @@ export type UploadAudioRequest = {
   webhook?: string;
 }
 
+export type UploadAudioResponse = {
+  success: boolean;
+  title: string;
+  message: string;
+}
+
 export enum CacheControlScope {
   Public = 'PUBLIC',
   Private = 'PRIVATE'
