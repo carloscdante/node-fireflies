@@ -74,3 +74,5 @@ For this operation, the expected response would be:
 ```
 
 All properties are being returned following the `filter` parameter on the API call. Hence, you can personalize the output using `filter`, returning only what you want.
+
+For more information, you can check the [API Reference](https://docs.fireflies.ai/).
