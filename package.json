@@ -2,7 +2,8 @@
   "name": "node-fireflies",
   "version": "1.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "build/index.js",
+  "main": "build/index.d.ts",
   "scripts": {
     "build": "tsc -p .",
     "typedoc": "typedoc --out ./docs ./src --theme stacks",
