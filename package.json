@@ -1,8 +1,7 @@
 {
   "name": "node-fireflies",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "",
-  "main": "build/index.js",
   "main": "build/index.d.ts",
   "scripts": {
     "build": "tsc -p .",
