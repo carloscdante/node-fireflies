@@ -7,13 +7,13 @@ A Typescript API library for Fireflies.AI (docs.fireflies.ai)
 You can install node-fireflies with your preferred package manager:
 
 ### NPM
-`npm install fireflies`
+`npm install node-fireflies`
 
 ### Yarn
-`yarn add fireflies`
+`yarn add node-fireflies`
 
 ### pnpm
-`pnpm install fireflies`
+`pnpm add node-fireflies`
 
 ----
 
